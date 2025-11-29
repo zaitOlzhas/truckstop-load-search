@@ -1,0 +1,130 @@
+### TruckStop Load Search API Test Request
+### Example request with single destination
+POST https://localhost:5001/api/truckstop/load-search
+Content-Type: application/json
+
+{
+  "integrationId": "YOUR_INTEGRATION_ID",
+  "password": "YOUR_PASSWORD",
+  "userName": "YOUR_USERNAME",
+  "criteria": {
+    "origin": {
+      "city": "Dallas",
+      "state": "TX",
+      "country": "USA",
+      "range": 50
+    },
+    "destinations": [
+      {
+        "city": "Atlanta",
+        "state": "GA",
+        "country": "USA",
+        "range": 100
+      }
+    ],
+    "equipmentType": "V",
+    "loadType": "Full",
+    "ageFilter": 0,
+    "pageNumber": 1,
+    "pageSize": 10
+  }
+}
+
+###
+### Example request with multiple destinations
+POST https://localhost:5001/api/truckstop/load-search
+Content-Type: application/json
+
+{
+  "integrationId": "YOUR_INTEGRATION_ID",
+  "password": "YOUR_PASSWORD",
+  "userName": "YOUR_USERNAME",
+  "criteria": {
+    "origin": {
+      "city": "Chicago",
+      "state": "IL",
+      "country": "USA",
+      "range": 75
+    },
+    "destinations": [
+      {
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "range": 50
+      },
+      {
+        "city": "Boston",
+        "state": "MA",
+        "country": "USA",
+        "range": 100
+      }
+    ],
+    "equipmentType": "F",
+    "equipmentOptions": ["Tarps"],
+    "loadType": "All",
+    "pageNumber": 1,
+    "pageSize": 20,
+    "sortColumn": "PickUpDate",
+    "sortDirection": "Ascending"
+  }
+}
+
+###
+### Example request with minimal criteria (only origin)
+POST https://localhost:5001/api/truckstop/load-search
+Content-Type: application/json
+
+{
+  "integrationId": "YOUR_INTEGRATION_ID",
+  "password": "YOUR_PASSWORD",
+  "userName": "YOUR_USERNAME",
+  "criteria": {
+    "origin": {
+      "state": "CA",
+      "country": "USA",
+      "range": 200
+    },
+    "equipmentType": "V",
+    "pageNumber": 1,
+    "pageSize": 50
+  }
+}
+
+###
+### Expected Success Response Example
+# HTTP/1.1 200 OK
+# Content-Type: application/json
+#
+# {
+#   "loads": [
+#     {
+#       "loadId": "123456789",
+#       "pickupDate": "2025-12-01T08:00:00",
+#       "deliveryDate": "2025-12-03T17:00:00",
+#       "originCity": "Dallas",
+#       "originState": "TX",
+#       "destinationCity": "Atlanta",
+#       "destinationState": "GA",
+#       "equipmentType": "V",
+#       "payment": 2500.00,
+#       "miles": 780,
+#       "companyName": "ABC Trucking",
+#       "contactPhone": "555-123-4567",
+#       "weight": 42000.0,
+#       "comments": "Standard dry van load"
+#     }
+#   ],
+#   "errorMessage": null,
+#   "hasError": false,
+#   "totalResults": 1
+# }
+
+###
+### Expected Error Response Example
+# HTTP/1.1 400 Bad Request
+# Content-Type: application/json
+#
+# {
+#   "error": "Invalid credentials or integration ID"
+# }
