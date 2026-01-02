@@ -1,0 +1,36 @@
+services:
+  truckstop-api:
+    image: truckstop-integration:prod
+    container_name: truckstop-api-prod
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - TruckStop__ApiUrl=${TRUCKSTOP_API_URL:-http://webservices.truckstop.com/}
+    # Production optimizations
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 512M
+
+  truckstop-frontend:
+    image: truckstop-frontend:prod
+    container_name: truckstop-frontend-prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:5244}
+    # Production optimizations
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 256M

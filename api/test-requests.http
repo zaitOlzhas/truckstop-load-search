@@ -1,6 +1,6 @@
 ### TruckStop Load Search API Test Request
-### Example request with single destination
-POST https://localhost:5001/api/truckstop/load-search
+### Los Angeles to Garden City - Flatbed (F)
+POST http://localhost:5244/api/truckstop/load-search
 Content-Type: application/json
 
 {
@@ -8,23 +8,45 @@ Content-Type: application/json
   "password": "YOUR_PASSWORD",
   "userName": "YOUR_USERNAME",
   "criteria": {
-    "origin": {
-      "city": "Dallas",
-      "state": "TX",
-      "country": "USA",
-      "range": 50
-    },
-    "destinations": [
-      {
-        "city": "Atlanta",
-        "state": "GA",
-        "country": "USA",
-        "range": 100
-      }
-    ],
+    "originCity": "Los Angeles",
+    "originState": "CA",
+    "originCountry": "usa",
+    "originRange": 300,
+    "destinationCity": "Garden City",
+    "destinationState": "GA",
+    "destinationCountry": "usa",
+    "destinationRange": 500,
+    "equipmentType": "F",
+    "loadType": "All",
+    "hoursOld": 0,
+    "pageNumber": 1,
+    "pageSize": 50,
+    "sortBy": "Age",
+    "sortDescending": false
+  }
+}
+
+###
+### Dallas to Atlanta - Van (V)
+POST http://localhost:5244/api/truckstop/load-search
+Content-Type: application/json
+
+{
+  "integrationId": "YOUR_INTEGRATION_ID",
+  "password": "YOUR_PASSWORD",
+  "userName": "YOUR_USERNAME",
+  "criteria": {
+    "originCity": "Dallas",
+    "originState": "TX",
+    "originCountry": "usa",
+    "originRange": 50,
+    "destinationCity": "Atlanta",
+    "destinationState": "GA",
+    "destinationCountry": "usa",
+    "destinationRange": 100,
     "equipmentType": "V",
     "loadType": "Full",
-    "ageFilter": 0,
+    "hoursOld": 0,
     "pageNumber": 1,
     "pageSize": 10
   }

@@ -1,0 +1,23 @@
+services:
+  truckstop-api:
+    image: truckstop-integration:dev
+    container_name: truckstop-api-dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - TruckStop__ApiUrl=${TRUCKSTOP_API_URL:-https://testws.truckstop.com/v13/Searching/LoadSearch.svc}
+
+  truckstop-frontend:
+    image: truckstop-frontend:dev
+    container_name: truckstop-frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:5244
+    volumes:
+      # Mount source code for hot reload in development
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next

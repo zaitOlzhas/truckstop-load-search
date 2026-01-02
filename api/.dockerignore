@@ -1,0 +1,35 @@
+# Directories
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# Files
+**/*.trx
+**/*.md
+**/*.ps1
+**/*.cmd
+**/*.sh
+**/.DS_Store
+**/.git
+**/.gitignore
+**/.gitattributes
+**/.editorconfig
+**/.dockerignore
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.user
+**/*.suo
+**/*.sln.docstates
+
+# Build artifacts
+**/Dockerfile*
+**/docker-compose*
+**/.env
+**/.env.local
+
+# Documentation
+**/README.md
+**/LICENSE
+**/*.http

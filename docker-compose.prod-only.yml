@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  truckstop-api:
+    image: zaitolzhas/truckstop-integration:prod
+    container_name: truckstop-api-prod
+    ports:
+      - "5244:8080"
+      - "7244:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - TruckStop__ApiUrl=http://webservices.truckstop.com/v13/Searching/LoadSearch.svc
+    restart: unless-stopped
+    networks:
+      - truckstop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 512M
+
+  truckstop-frontend:
+    image: zaitolzhas/truckstop-frontend:prod
+    container_name: truckstop-frontend-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:5244
+    restart: unless-stopped
+    networks:
+      - truckstop-network
+    depends_on:
+      - truckstop-api
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+networks:
+  truckstop-network:
+    driver: bridge
